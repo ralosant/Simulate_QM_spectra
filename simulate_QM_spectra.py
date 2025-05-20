@@ -622,8 +622,6 @@ class Spectra(ConfigParse):
         start = time.time()
         # Configure dictionary
         ConfigParse.ass_vars(self, ConfigParse.parsecl(self))
-        # Data extraction and convolution
-        Spectra.generate_spectra(self)
 
         # Display configuration details
         print(f'Using {self.software_qm} data')
@@ -632,12 +630,9 @@ class Spectra(ConfigParse):
         print(f'Plotting {self.plot_single_fn} individual functions and \
 {self.plot_single_f} oscillator strength bars')
         print("")
+        # Data extraction and convolution
+        Spectra.generate_spectra(self)
 
-        # Print energies and oscillator strengths
-        if self.debug:
-            print(_file)
-            print('Energies:', self.energ)
-            print('Oscillator strengths:', self.fos)
         if not self.multi:
             # Save transitions to file
             Spectra.output_ener_f(self)
@@ -719,6 +714,13 @@ class Spectra(ConfigParse):
             self.energ, self.fos = ConfigParse.get_qm_data(self, _file)
             if not self.energ and not self.fos:
                 return "", "", "", ""
+            
+            # Print energies and oscillator strengths
+            if self.debug:
+                print(_file)
+                print('Energies:', self.energ)
+                print('Oscillator strengths:', self.fos)
+            
             # Convolute function for each transition
             # Correct extra line with debug
             if self.debug:
