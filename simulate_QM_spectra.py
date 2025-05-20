@@ -622,7 +622,6 @@ class Spectra(ConfigParse):
         start = time.time()
         # Configure dictionary
         ConfigParse.ass_vars(self, ConfigParse.parsecl(self))
-
         # Display configuration details
         print(f'Using {self.software_qm} data')
         print(f'Using {self.weight_fn} Gaussian & \
@@ -632,7 +631,6 @@ class Spectra(ConfigParse):
         print("")
         # Data extraction and convolution
         Spectra.generate_spectra(self)
-
         if not self.multi:
             # Save transitions to file
             Spectra.output_ener_f(self)
@@ -646,7 +644,6 @@ class Spectra(ConfigParse):
                 os.remove(f"TMP_{count3}.dat")
             del count3
         end = time.time()
-        print(self.__dict__)
         print("Execution time :", round(end-start, 3), "s")
 
     def function_gen(self, x_x, landa, f_osc):
